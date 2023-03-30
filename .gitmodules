@@ -1,3 +1,0 @@
-[submodule "Dependencies/GLEW"]
-	path = Dependencies/GLEW
-	url = https://github.com/nigels-com/glew.git
