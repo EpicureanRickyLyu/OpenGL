@@ -7,6 +7,8 @@
 #include <string>
 #include <sstream>
 
+#include "ErrorHandler.h"
+
 using s32 = int32_t;
 using u32 = uint32_t;
 
@@ -171,7 +173,8 @@ int main(void)
 		/* Render here */
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+
+		GLCALL(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
 
 		//glDrawArrays(GL_TRIANGLES, 0, 3);
 
