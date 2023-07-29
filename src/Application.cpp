@@ -117,7 +117,7 @@ int main(void)
 
 	/* Make the window's context current */
 	glfwMakeContextCurrent(window);
-
+	glfwSwapInterval(1);
 	/* Init glew */
 	GLenum err = glewInit();
 	if (GLEW_OK != err)
@@ -136,7 +136,12 @@ int main(void)
 		0.5f, 0.5f,
 		-0.5, 0.5f,
 	};
+	//Hold vertices id
+	unsigned int vao;
+	GLCALL(glGenVertexArrays(1, &vao));
+	GLCALL(glBindVertexArray(vao));
 
+	
 	//id for specific shader
 	u32 buffer;
 	glGenBuffers(1, &buffer);
@@ -151,7 +156,7 @@ int main(void)
 	unsigned int IndexVertices[] =
 	{
 		0, 1, 2,
-		2, 3, 0,
+		2, 3, 0,	
 	};
 
 	//Index Buffer
@@ -165,7 +170,13 @@ int main(void)
 	//Compile and LoadShader
 	ShaderSource source = ParseShader("res/shaders/Basic.shader");
 	u32 shader = CreateShader(source.VertexSource, source.FragmentSource);
-	glUseProgram(shader);
+	GLCALL(glUseProgram(shader));
+
+	GLCALL(int location = glGetUniformLocation(shader, "u_Color"));//retrieve the variable and assign the data inside
+	ASSERT(location != -1);
+	GLCALL(glUniform4f(location, 0.2f,0.3f,0.8f,1.0f));
+
+
 
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
